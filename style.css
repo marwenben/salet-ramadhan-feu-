@@ -1,0 +1,2551 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Police arabe */
+body.arabic {
+    font-family: 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', serif;
+    direction: rtl;
+}
+
+/* Motif islamique en arrière-plan */
+.islamic-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+    background-image: 
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
+    background-size: 100px 100px;
+}
+
+.islamic-pattern::before {
+    content: '☪️ ✨ 🕌 ✨ ☪️ ✨ 🕌 ✨ ☪️ ✨ 🕌 ✨ ☪️ ✨ 🕌 ✨ ☪️ ✨ 🕌 ✨ ☪️ ✨ 🕌 ✨';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    opacity: 0.15;
+    white-space: nowrap;
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+}
+
+/* Boutons de changement de langue */
+.language-switcher {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.lang-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: white;
+    font-weight: bold;
+}
+
+/* Bismillah */
+.bismillah {
+    font-family: 'Amiri', serif !important;
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #ffd700;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#current-date {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Date islamique */
+.islamic-date {
+    font-family: 'Amiri', serif !important;
+    font-size: 1.3em;
+    margin-top: 10px;
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Compte à rebours Ramadan */
+.ramadan-countdown {
+    margin-top: 20px;
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.95) 0%, rgba(255, 183, 77, 0.95) 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    animation: pulse-ramadan 2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid rgba(255, 215, 0, 0.8);
+}
+
+.ramadan-countdown::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5em;
+    animation: twinkle 2s infinite;
+}
+
+.ramadan-countdown::after {
+    content: '✨';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    animation: twinkle 2s infinite 1s;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes pulse-ramadan {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 8px 35px rgba(255, 215, 0, 0.7);
+        transform: scale(1.02);
+    }
+}
+
+.ramadan-countdown.during-ramadan {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.95) 0%, rgba(34, 197, 94, 0.95) 100%);
+    border-color: rgba(34, 197, 94, 0.8);
+    animation: glow-green 2s ease-in-out infinite;
+}
+
+@keyframes glow-green {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+    }
+    50% {
+        box-shadow: 0 8px 35px rgba(34, 197, 94, 0.7);
+    }
+}
+
+.ramadan-icon {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ramadan-gif {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    animation: float-icon 3s ease-in-out infinite;
+}
+
+.ramadan-video {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.5);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+    animation: float-icon 3s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.ramadan-text-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.ramadan-main-text {
+    color: #1e3c72;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.arabic .ramadan-main-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.5em;
+}
+
+/* Sélecteurs de villes */
+.city-selectors {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 250px;
+}
+
+.selector-group label {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: white;
+    text-align: left;
+}
+
+.arabic .selector-group label {
+    text-align: right;
+    font-family: 'Amiri', serif;
+}
+
+.city-select {
+    padding: 12px 15px;
+    font-size: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e3c72;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.city-select:hover {
+    border-color: #ffd700;
+    box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.city-select:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+
+.arabic .city-select {
+    font-family: 'Amiri', serif;
+    direction: rtl;
+}
+
+/* Icônes outils islamiques */
+.islamic-tools {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.tool-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.tool-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: #ffd700;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.tool-icon {
+    font-size: 1.8em;
+}
+
+.arabic .tool-btn {
+    font-family: 'Amiri', serif;
+}
+
+.cities-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.city-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    border: 3px solid rgba(255, 215, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.city-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.25;
+    z-index: 0;
+    transition: background-image 0.8s ease, opacity 0.8s ease;
+}
+
+/* Images de fond selon la prière actuelle */
+.city-card.current-prayer-fajr::before {
+    background-image: url('fajr-bg.jpg');
+    opacity: 0.35;
+}
+
+.city-card.current-prayer-dhuhr::before {
+    background-image: url('dhuhr-bg.jpg');
+    opacity: 0.35;
+}
+
+.city-card.current-prayer-asr::before {
+    background-image: url('asr-bg.jpg');
+    opacity: 0.35;
+}
+
+.city-card.current-prayer-maghrib::before {
+    background-image: url('maghrib-bg.jpg');
+    opacity: 0.35;
+}
+
+.city-card.current-prayer-isha::before {
+    background-image: url('isha-bg.jpg');
+    opacity: 0.35;
+}
+
+/* Assurer que le contenu est au-dessus */
+.city-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.city-card::after {
+    content: '';
+    display: none;
+}
+
+.city-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+.city-card h2 {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.arabic .city-card h2 {
+    font-family: 'Amiri', serif;
+    font-size: 2em;
+}
+
+/* Heure locale */
+.local-time {
+    text-align: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #1e3c72;
+    border: 2px solid #7dd3fc;
+}
+
+.clock-icon {
+    font-size: 1.3em;
+    margin-right: 5px;
+}
+
+.time-display {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #0369a1;
+    margin-left: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.arabic .local-time {
+    font-family: 'Amiri', serif;
+}
+
+.prayers-list {
+    margin-bottom: 20px;
+}
+
+.prayer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+    background-size: cover;
+    background-position: center;
+}
+
+.prayer-info-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Overlay sombre pour la lisibilité du texte */
+.prayer-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+    transition: background 0.3s ease;
+}
+
+/* Images de fond pour chaque prière */
+.prayer-item.prayer-fajr {
+    background-image: url('fajr-bg.jpg');
+}
+
+.prayer-item.prayer-dhuhr {
+    background-image: url('dhuhr-bg.jpg');
+}
+
+.prayer-item.prayer-asr {
+    background-image: url('asr-bg.jpg');
+}
+
+.prayer-item.prayer-maghrib {
+    background-image: url('maghrib-bg.jpg');
+}
+
+.prayer-item.prayer-isha {
+    background-image: url('isha-bg.jpg');
+}
+
+/* Texte par dessus l'overlay */
+.prayer-item .prayer-name,
+.prayer-item .prayer-time {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.prayer-item:hover {
+    transform: translateX(5px) scale(1.02);
+    border-left-color: #ffd700;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.prayer-item:hover::before {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.prayer-item.current {
+    border-left-color: #ffd700;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+    animation: glow-prayer 2s ease-in-out infinite;
+    transform: scale(1.08);
+    z-index: 10;
+    margin: 15px 0;
+}
+
+.prayer-item.current::before {
+    background: rgba(30, 60, 114, 0.4);
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+}
+
+.prayer-item.current .prayer-name {
+    font-size: 1.6em;
+    font-weight: 800;
+    color: #ffd700;
+    text-shadow: 
+        2px 2px 6px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+.prayer-item.current .prayer-time {
+    font-size: 1.8em;
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow: 
+        2px 2px 6px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+.prayer-item.current .weather-icon {
+    font-size: 2.5em;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+}
+
+.prayer-item.current .weather-temp {
+    font-size: 1.6em;
+    color: #ffd700;
+    text-shadow: 
+        2px 2px 6px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+@keyframes glow-prayer {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+    }
+    50% {
+        box-shadow: 0 8px 35px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4);
+    }
+}
+
+.prayer-name {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+    position: relative;
+    z-index: 1;
+}
+
+.arabic .prayer-name {
+    font-family: 'Amiri', serif;
+    font-size: 1.5em;
+}
+
+.prayer-time {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== INDICATEUR PROCHAINE PRIÈRE - ULTRA ANIMÉ ========== */
+
+.next-prayer {
+    text-align: center;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, 
+        #ffd700 0%, 
+        #ffed4e 25%, 
+        #ffd700 50%, 
+        #ffed4e 75%, 
+        #ffd700 100%);
+    background-size: 200% 200%;
+    border-radius: 15px;
+    color: #1e3c72;
+    font-weight: 800;
+    font-size: 1.3em;
+    margin-top: 20px;
+    border: 3px solid #ff8c00;
+    box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: 
+        pulse-next-prayer 2s ease-in-out infinite,
+        gradient-shift 3s ease infinite;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+}
+
+/* Animation de pulsation */
+@keyframes pulse-next-prayer {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 20px rgba(255, 215, 0, 0.6),
+            0 0 40px rgba(255, 215, 0, 0.4),
+            inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 
+            0 0 30px rgba(255, 215, 0, 0.8),
+            0 0 60px rgba(255, 215, 0, 0.6),
+            inset 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Animation du gradient qui bouge */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Effet de brillance qui traverse */
+.next-prayer::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    animation: shine-sweep 3s ease-in-out infinite;
+}
+
+@keyframes shine-sweep {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50%, 100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Icône animée avant le texte */
+.next-prayer::after {
+    content: '⏰';
+    position: absolute;
+    left: 15px;
+    font-size: 2em;
+    animation: bounce-icon 2s ease-in-out infinite;
+}
+
+@keyframes bounce-icon {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(-10deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+}
+
+/* Effet au survol */
+.next-prayer:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 
+        0 0 40px rgba(255, 215, 0, 0.9),
+        0 0 80px rgba(255, 215, 0, 0.6),
+        inset 0 0 30px rgba(255, 255, 255, 0.5);
+    border-color: #ff6347;
+    cursor: pointer;
+}
+
+/* Texte avec ombre lumineuse */
+.next-prayer {
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.arabic .next-prayer {
+    font-family: 'Amiri', serif;
+    font-size: 1.4em;
+}
+
+/* Particules flottantes autour */
+.next-prayer-container {
+    position: relative;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .next-prayer {
+        font-size: 1.1em;
+        padding: 15px 20px;
+    }
+    
+    .next-prayer::after {
+        font-size: 1.5em;
+        left: 10px;
+    }
+}
+
+/* ========== FIN INDICATEUR PROCHAINE PRIÈRE ========== */
+
+/* ========== MÉTÉO DANS LES PRIÈRES - ANIMATIONS ========== */
+
+.prayer-weather {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.weather-icon {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.weather-temp {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* SOLEIL - Rotation */
+.weather-icon[data-weather="clear"],
+.weather-icon[data-weather="sunny"] {
+    animation: rotate-sun 20s linear infinite;
+}
+
+@keyframes rotate-sun {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* NEIGE - Flocons qui tombent */
+.weather-icon[data-weather="snow"]::before,
+.weather-icon[data-weather="snow"]::after {
+    content: '❄️';
+    position: absolute;
+    font-size: 0.5em;
+    animation: falling-snow 3s linear infinite;
+}
+
+.weather-icon[data-weather="snow"]::before {
+    left: -8px;
+    animation-delay: 0s;
+}
+
+.weather-icon[data-weather="snow"]::after {
+    right: -8px;
+    animation-delay: 1.5s;
+}
+
+@keyframes falling-snow {
+    0% {
+        top: -20px;
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        top: 50px;
+        opacity: 0;
+        transform: translateY(0) rotate(360deg);
+    }
+}
+
+/* PLUIE - Gouttes qui tombent */
+.weather-icon[data-weather="rain"]::before,
+.weather-icon[data-weather="rain"]::after {
+    content: '💧';
+    position: absolute;
+    font-size: 0.5em;
+    animation: falling-rain 1.5s linear infinite;
+}
+
+.weather-icon[data-weather="rain"]::before {
+    left: -5px;
+    animation-delay: 0s;
+}
+
+.weather-icon[data-weather="rain"]::after {
+    right: -5px;
+    animation-delay: 0.75s;
+}
+
+@keyframes falling-rain {
+    0% {
+        top: -15px;
+        opacity: 1;
+    }
+    100% {
+        top: 45px;
+        opacity: 0;
+    }
+}
+
+/* ORAGE - Éclair qui clignote */
+.weather-icon[data-weather="thunderstorm"] {
+    animation: thunder-flash 2s ease-in-out infinite;
+}
+
+@keyframes thunder-flash {
+    0%, 90%, 100% { 
+        filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4)); 
+    }
+    5%, 15%, 25% { 
+        filter: drop-shadow(0 0 20px rgba(255, 255, 0, 1)) 
+                drop-shadow(0 0 40px rgba(255, 255, 0, 0.8)); 
+    }
+}
+
+/* NUAGES - Mouvement flottant */
+.weather-icon[data-weather="clouds"],
+.weather-icon[data-weather="cloudy"] {
+    animation: floating-clouds 4s ease-in-out infinite;
+}
+
+@keyframes floating-clouds {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+/* BROUILLARD - Effet fade */
+.weather-icon[data-weather="mist"],
+.weather-icon[data-weather="fog"] {
+    animation: mist-fade 3s ease-in-out infinite;
+}
+
+@keyframes mist-fade {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* VENT - Mouvement latéral */
+.weather-icon[data-weather="wind"] {
+    animation: wind-blow 2s ease-in-out infinite;
+}
+
+@keyframes wind-blow {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(7px); }
+}
+
+/* NUIT CLAIRE - Étoiles scintillantes */
+.weather-icon[data-weather="clear-night"]::before,
+.weather-icon[data-weather="clear-night"]::after {
+    content: '✨';
+    position: absolute;
+    font-size: 0.4em;
+    animation: twinkle-stars 2s ease-in-out infinite;
+}
+
+.weather-icon[data-weather="clear-night"]::before {
+    top: -10px;
+    right: -10px;
+    animation-delay: 0s;
+}
+
+.weather-icon[data-weather="clear-night"]::after {
+    bottom: -10px;
+    left: -10px;
+    animation-delay: 1s;
+}
+
+@keyframes twinkle-stars {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(0.7); }
+}
+
+/* NEIGE FORTE - Plus de flocons */
+.weather-icon[data-weather="heavy-snow"]::before,
+.weather-icon[data-weather="heavy-snow"]::after {
+    content: '❄️';
+    position: absolute;
+    animation: falling-snow-fast 2s linear infinite;
+}
+
+.weather-icon[data-weather="heavy-snow"]::before {
+    left: -10px;
+    font-size: 0.6em;
+    animation-delay: 0s;
+}
+
+.weather-icon[data-weather="heavy-snow"]::after {
+    right: -10px;
+    font-size: 0.6em;
+    animation-delay: 1s;
+}
+
+@keyframes falling-snow-fast {
+    0% { 
+        top: -25px; 
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+    100% { 
+        top: 60px; 
+        opacity: 0;
+        transform: rotate(720deg);
+    }
+}
+
+/* PLUIE FORTE - Gouttes rapides */
+.weather-icon[data-weather="heavy-rain"]::before,
+.weather-icon[data-weather="heavy-rain"]::after {
+    content: '💧';
+    position: absolute;
+    animation: falling-rain-fast 1s linear infinite;
+}
+
+.weather-icon[data-weather="heavy-rain"]::before {
+    left: -6px;
+    font-size: 0.6em;
+    animation-delay: 0s;
+}
+
+.weather-icon[data-weather="heavy-rain"]::after {
+    right: -6px;
+    font-size: 0.6em;
+    animation-delay: 0.5s;
+}
+
+@keyframes falling-rain-fast {
+    0% { top: -20px; opacity: 1; }
+    100% { top: 50px; opacity: 0; }
+}
+
+/* DRIZZLE - Petite pluie légère */
+.weather-icon[data-weather="drizzle"]::before {
+    content: '💧';
+    position: absolute;
+    font-size: 0.4em;
+    left: 0;
+    animation: falling-rain 2s linear infinite;
+}
+
+/* Responsive météo */
+@media (max-width: 768px) {
+    .weather-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.5em;
+    }
+    
+    .weather-temp {
+        font-size: 1.1em;
+    }
+}
+
+footer {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.last-update {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Animation de chargement */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .bismillah {
+        font-size: 1.3em;
+    }
+    
+    .city-card {
+        padding: 20px;
+    }
+    
+    .prayer-name, .prayer-time {
+        font-size: 1em;
+    }
+    
+    .language-switcher {
+        position: relative;
+        top: 0;
+        right: 0;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+}
+
+/* Direction RTL pour l'arabe */
+.arabic .prayer-item {
+    flex-direction: row-reverse;
+}
+
+.arabic .language-switcher {
+    left: 15px;
+    right: auto;
+}
+
+@media (max-width: 768px) {
+    .arabic .language-switcher {
+        left: auto;
+        right: auto;
+    }
+    
+    .islamic-tools {
+        position: relative;
+        left: 0;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    
+    .tool-btn {
+        font-size: 0.75em;
+        padding: 8px 12px;
+    }
+    
+    .ramadan-gif {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .ramadan-video {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .ramadan-main-text {
+        font-size: 1.1em;
+    }
+    
+    .arabic .ramadan-main-text {
+        font-size: 1.3em;
+    }
+}
+
+/* Styles pour les modales */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.arabic .modal-header h2 {
+    font-family: 'Amiri', serif;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg) scale(1.2);
+    color: #ffd700;
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+}
+
+/* Styles pour le Coran */
+.quran-modal-content {
+    max-width: 900px;
+}
+
+.surah-selector {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.surah-selector label {
+    font-weight: 600;
+    color: #1e3c72;
+    font-size: 1.1em;
+}
+
+.arabic .surah-selector label {
+    font-family: 'Amiri', serif;
+}
+
+.quran-select {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 15px;
+    border: 2px solid #2a5298;
+    border-radius: 10px;
+    font-size: 1em;
+    font-family: 'Amiri', serif;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quran-select:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.load-btn {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.load-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 60, 114, 0.4);
+}
+
+.quran-text {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    font-family: 'Amiri', serif;
+    font-size: 1.8em;
+    line-height: 2.5;
+    text-align: right;
+    direction: rtl;
+    color: #1e3c72;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.quran-info {
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.7em;
+}
+
+.ayah {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    border-right: 4px solid #2a5298;
+}
+
+.ayah-number {
+    display: inline-block;
+    background: #2a5298;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.6em;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* Couleurs Tajweed pour règles de récitation */
+.tajweed-ghunna {
+    color: #ff69b4;
+    font-weight: bold;
+}
+
+.tajweed-idghaam-ghunnah {
+    color: #ff1493;
+    font-weight: bold;
+}
+
+.tajweed-idghaam-wo-ghunnah {
+    color: #dc143c;
+    font-weight: bold;
+}
+
+.tajweed-iqlab {
+    color: #9370db;
+    font-weight: bold;
+}
+
+.tajweed-ikhfa {
+    color: #32cd32;
+    font-weight: bold;
+}
+
+.tajweed-ikhfa-meem {
+    color: #3cb371;
+    font-weight: bold;
+}
+
+.tajweed-qalqalah {
+    color: #1e90ff;
+    font-weight: bold;
+}
+
+.tajweed-madd-normal {
+    color: #ff8c00;
+    font-weight: bold;
+}
+
+.tajweed-madd-obligatory {
+    color: #ff4500;
+    font-weight: bold;
+}
+
+.tajweed-madd-permissible {
+    color: #ffa500;
+    font-weight: bold;
+}
+
+.tajweed-silent {
+    color: #999999;
+    font-size: 0.8em;
+}
+
+.tajweed-laam-shamsiyah {
+    color: #ff6347;
+    font-weight: bold;
+}
+
+.tajweed-hamzat-wasl {
+    color: #4169e1;
+    font-weight: bold;
+}
+
+/* Styles pour Tasbih */
+.tasbih-modal-content {
+    max-width: 500px;
+}
+
+.tasbih-body {
+    text-align: center;
+}
+
+.tasbih-phrases {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.phrase-btn {
+    padding: 15px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.phrase-btn:hover {
+    background: #e9ecef;
+    border-color: #2a5298;
+}
+
+.phrase-btn.active {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border-color: #1e3c72;
+}
+
+.arabic-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.translation {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.current-phrase {
+    font-family: 'Amiri', serif;
+    font-size: 2.5em;
+    color: #1e3c72;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.tasbih-btn {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: 8px solid #ffd700;
+    cursor: pointer;
+    margin: 20px auto;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 30px rgba(30, 60, 114, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tasbih-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(30, 60, 114, 0.6);
+}
+
+.tasbih-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 5px 20px rgba(30, 60, 114, 0.6);
+}
+
+.tasbih-btn .tasbih-counter {
+    font-size: 4em;
+    font-weight: bold;
+    color: #ffd700;
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+}
+
+.tasbih-btn .tasbih-label {
+    font-size: 1em;
+    color: white;
+    opacity: 0.9;
+}
+
+.tasbih-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.action-btn {
+    padding: 10px 20px;
+    border: 2px solid #2a5298;
+    border-radius: 10px;
+    background: white;
+    color: #1e3c72;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #2a5298;
+    color: white;
+}
+
+.reset-btn {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.reset-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.target-btn {
+    background: #ffd700;
+    border-color: #ffd700;
+    color: #1e3c72;
+}
+
+.target-btn:hover {
+    background: #ffed4e;
+}
+
+.tasbih-goal {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff3cd;
+    border-radius: 10px;
+    color: #856404;
+    font-weight: 600;
+    display: none;
+}
+
+.tasbih-goal.active {
+    display: block;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+        margin: 10px;
+    }
+    
+    .quran-text {
+        font-size: 1.4em;
+        padding: 20px;
+    }
+    
+    .tasbih-btn {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .tasbih-btn .tasbih-counter {
+        font-size: 3em;
+    }
+    
+    .tasbih-btn .tasbih-label {
+        font-size: 0.9em;
+    }
+}
+
+/* Styles pour Qibla - Design simple et clair */
+.qibla-modal-content {
+    max-width: 550px;
+}
+
+.qibla-body {
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.qibla-status {
+    padding: 15px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-text {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+.status-text.success {
+    color: #22c55e;
+}
+
+.status-text.error {
+    color: #dc3545;
+}
+
+/* Conteneur de la boussole */
+.qibla-compass-wrapper {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 30px;
+}
+
+/* Direction Qibla FIXE (Kaaba toujours en haut) */
+.qibla-direction-fixed {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.kaaba-top {
+    font-size: 3em;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    animation: pulse-kaaba 2s ease-in-out infinite;
+}
+
+@keyframes pulse-kaaba {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.qibla-line {
+    width: 4px;
+    height: 80px;
+    background: linear-gradient(180deg, #22c55e 0%, rgba(34, 197, 94, 0.3) 100%);
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+/* Boussole rotative (le cercle qui tourne) */
+.compass-rotating {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 280px;
+    height: 280px;
+    margin-left: -140px;
+    margin-top: -140px;
+    transition: transform 0.5s ease-out;
+}
+
+.compass-circle-main {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+    border: 4px solid #1e3c72;
+    position: relative;
+    box-shadow: 
+        0 0 0 8px rgba(30, 60, 114, 0.1),
+        0 8px 25px rgba(30, 60, 114, 0.2),
+        inset 0 0 20px rgba(30, 60, 114, 0.05);
+}
+
+/* Nord (rouge - sur le cercle qui tourne) */
+.compass-north-marker {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.north-triangle {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 25px solid #dc3545;
+    margin: 0 auto 5px;
+    filter: drop-shadow(0 2px 4px rgba(220, 53, 69, 0.4));
+}
+
+.north-label {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #dc3545;
+    text-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+/* Autres directions cardinales */
+.compass-east-marker,
+.compass-south-marker,
+.compass-west-marker {
+    position: absolute;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.compass-east-marker {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.compass-south-marker {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.compass-west-marker {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Lignes de degrés */
+.degree-line {
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background: #6c757d;
+    top: 5px;
+    left: 50%;
+    margin-left: -1px;
+    transform-origin: 50% 135px;
+}
+
+.degree-line.d0 { transform: rotate(0deg); }
+.degree-line.d45 { transform: rotate(45deg); }
+.degree-line.d90 { transform: rotate(90deg); }
+.degree-line.d135 { transform: rotate(135deg); }
+.degree-line.d180 { transform: rotate(180deg); }
+.degree-line.d225 { transform: rotate(225deg); }
+.degree-line.d270 { transform: rotate(270deg); }
+.degree-line.d315 { transform: rotate(315deg); }
+
+/* Point central */
+.compass-center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    margin-top: -8px;
+    background: radial-gradient(circle, #1e3c72 0%, #2a5298 100%);
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(30, 60, 114, 0.4);
+    z-index: 25;
+}
+
+/* Cartes d'information */
+.qibla-info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-icon {
+    font-size: 2em;
+    flex-shrink: 0;
+}
+
+.info-details {
+    flex: 1;
+    text-align: left;
+}
+
+.info-label {
+    font-size: 0.85em;
+    color: #6c757d;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #1e3c72;
+    display: block;
+}
+
+.info-value.big {
+    font-size: 2em;
+    color: #22c55e;
+}
+
+.info-value.small {
+    font-size: 1em;
+}
+
+/* Aide */
+.qibla-help {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+}
+
+.help-title {
+    font-weight: bold;
+    color: #856404;
+    margin: 0 0 8px 0;
+    font-size: 1em;
+}
+
+.help-text {
+    color: #856404;
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.arabic .info-label,
+.arabic .status-text,
+.arabic .help-title,
+.arabic .help-text {
+    font-family: 'Amiri', serif;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .qibla-compass-wrapper {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .compass-rotating {
+        width: 240px;
+        height: 240px;
+        margin-left: -120px;
+        margin-top: -120px;
+    }
+    
+    .kaaba-top {
+        font-size: 2.5em;
+    }
+    
+    .qibla-line {
+        height: 65px;
+    }
+    
+    .info-card {
+        padding: 12px;
+    }
+    
+    .info-icon {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        max-height: 95vh;
+        margin: 10px;
+    }
+    
+    .quran-text {
+        font-size: 1.4em;
+        padding: 20px;
+    }
+    
+    .tasbih-btn {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .tasbih-btn .tasbih-counter {
+        font-size: 3em;
+    }
+    
+    .tasbih-btn .tasbih-label {
+        font-size: 0.9em;
+    }
+    
+    .qibla-compass {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .compass-needle {
+        height: 100px;
+        margin-top: -50px;
+    }
+}
+
+/* ========== CALENDRIER RAMADAN ========== */
+
+.ramadan-calendar-content {
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+}
+
+.calendar-title {
+    text-align: center;
+    color: #ffd700;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.calendar-icon {
+    font-size: 1.2em;
+    animation: pulse-moon 2s ease-in-out infinite;
+}
+
+@keyframes pulse-moon {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+.calendar-subtitle {
+    text-align: center;
+    color: #a8dadc;
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    margin: 30px 0;
+    padding: 0 20px;
+}
+
+.calendar-day {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    padding: 15px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-day::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.calendar-day:hover::before {
+    opacity: 1;
+}
+
+.calendar-day:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: #ffd700;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+.ramadan-day-num {
+    font-size: 1.8em;
+    font-weight: 900;
+    color: #ffd700;
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.gregorian-date {
+    font-size: 0.9em;
+    color: #a8dadc;
+    font-weight: 600;
+}
+
+.day-of-week {
+    font-size: 0.75em;
+    color: #98c1d9;
+    display: block;
+    margin-top: 3px;
+    font-weight: 500;
+}
+
+/* Jour actuel */
+.calendar-day.today {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255, 215, 0, 0.2);
+    animation: pulse-today 2s ease-in-out infinite;
+}
+
+@keyframes pulse-today {
+    0%, 100% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255, 215, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), inset 0 0 25px rgba(255, 215, 0, 0.3);
+    }
+}
+
+.calendar-day.today .ramadan-day-num {
+    font-size: 2.2em;
+    animation: glow-number 2s ease-in-out infinite;
+}
+
+@keyframes glow-number {
+    0%, 100% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.8);
+    }
+    50% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 1);
+    }
+}
+
+/* Weekend */
+.calendar-day.weekend {
+    background: rgba(255, 99, 71, 0.15);
+    border-color: rgba(255, 99, 71, 0.5);
+}
+
+.calendar-day.weekend:hover {
+    border-color: #ff6347;
+}
+
+/* Nuits spéciales (derniers 10 jours) */
+.calendar-day.special-night {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(79, 70, 229, 0.2) 100%);
+    border: 2px solid rgba(147, 51, 234, 0.6);
+}
+
+.calendar-day.special-night::after {
+    content: '⭐';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.2em;
+    animation: twinkle-star 1.5s ease-in-out infinite;
+}
+
+@keyframes twinkle-star {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.3);
+    }
+}
+
+.calendar-day.special-night:hover {
+    border-color: #9333ea;
+    box-shadow: 0 8px 20px rgba(147, 51, 234, 0.5);
+}
+
+/* Légende */
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #a8dadc;
+    font-size: 0.95em;
+    font-weight: 600;
+}
+
+.legend-box {
+    width: 25px;
+    height: 25px;
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.today-box {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.4) 0%, rgba(255, 215, 0, 0.2) 100%);
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.weekend-box {
+    background: rgba(255, 99, 71, 0.2);
+    border-color: rgba(255, 99, 71, 0.6);
+}
+
+.special-box {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.3) 0%, rgba(79, 70, 229, 0.3) 100%);
+    border-color: rgba(147, 51, 234, 0.7);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .calendar-title {
+        font-size: 1.8em;
+        gap: 10px;
+    }
+    
+    .calendar-subtitle {
+        font-size: 1em;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 8px;
+        padding: 0 10px;
+    }
+    
+    .calendar-day {
+        padding: 12px 8px;
+    }
+    
+    .ramadan-day-num {
+        font-size: 1.5em;
+    }
+    
+    .gregorian-date {
+        font-size: 0.8em;
+    }
+    
+    .day-of-week {
+        font-size: 0.7em;
+    }
+    
+    .calendar-legend {
+        gap: 15px;
+        font-size: 0.85em;
+    }
+    
+    .legend-box {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ========================= */
+/* NOUVEAUX STYLES AMÉLIORÉS */
+/* ========================= */
+
+/* Particules flottantes en arrière-plan */
+.floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.floating-particles::before,
+.floating-particles::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+    animation: float-particle 20s infinite ease-in-out;
+}
+
+.floating-particles::before {
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.floating-particles::after {
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 10s;
+    animation-duration: 25s;
+}
+
+@keyframes float-particle {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(100px, -50px) scale(1.2);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(50px, 100px) scale(0.8);
+        opacity: 0.2;
+    }
+    75% {
+        transform: translate(-50px, 50px) scale(1.1);
+        opacity: 0.4;
+    }
+}
+
+/* Modal des notifications */
+.notifications-modal-content {
+    max-width: 500px;
+    animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.notifications-body {
+    padding: 25px;
+}
+
+.notification-info {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 2px solid #7dd3fc;
+    text-align: center;
+}
+
+.notification-info p {
+    color: #0369a1;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.notification-enable-btn {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.notification-enable-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.notification-enable-btn:active {
+    transform: translateY(0);
+}
+
+.prayer-notifications {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.notification-item:hover {
+    border-color: #ffd700;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.notification-prayer-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.prayer-icon {
+    font-size: 2em;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.prayer-name {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+/* Toggle Switch amélioré */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+    transition: all 0.4s ease;
+    border-radius: 30px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    transition: all 0.4s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+}
+
+/* Contrôle du volume */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 15px;
+    border: 2px solid #fbbf24;
+    margin-bottom: 20px;
+}
+
+.volume-control label {
+    font-weight: 600;
+    color: #92400e;
+    font-size: 1.1em;
+    min-width: 150px;
+}
+
+.volume-slider {
+    flex: 1;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #cbd5e1 0%, #22c55e 100%);
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #22c55e;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+    transition: all 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 12px rgba(34, 197, 94, 0.7);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #22c55e;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 12px rgba(34, 197, 94, 0.7);
+}
+
+#volume-value {
+    font-weight: bold;
+    color: #16a34a;
+    font-size: 1.2em;
+    min-width: 45px;
+    text-align: right;
+}
+
+/* Bouton de test */
+.test-notification-btn {
+    width: 100%;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.test-notification-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.test-notification-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.test-notification-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.5);
+}
+
+.test-notification-btn:active {
+    transform: translateY(0);
+}
+
+/* Amélioration responsive */
+@media (max-width: 768px) {
+    .notifications-modal-content {
+        max-width: 90%;
+        margin: 20px auto;
+    }
+    
+    .volume-control {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .volume-control label {
+        text-align: center;
+    }
+}
